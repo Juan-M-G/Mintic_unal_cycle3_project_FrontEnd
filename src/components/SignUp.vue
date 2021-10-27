@@ -11,12 +11,6 @@
         <br />
         <input type="email" v-model="user.email" placeholder="Email" />
         <br />
-        <input
-          type="number"
-          vmodel="user.account.balance"
-          placeholder="Initial Balance"
-        />
-        <br />
         <button type="submit">Registrarse</button>
       </form>
     </div>
@@ -34,18 +28,13 @@ export default {
         password: "",
         name: "",
         email: "",
-        account: {
-          lastChangeDate: new Date().toJSON().toString(),
-          balance: 0,
-          isActive: true,
-        },
       },
     };
   },
   methods: {
     processSignUp: function () {
       axios
-        .post("https://unal-guias-mintic.herokuapp.com/user/", this.user, {
+        .post("https://misiontic--bankbe-grupo6-p67.herokuapp.com/user/", this.user, {
           headers: {},
         })
         .then((result) => {

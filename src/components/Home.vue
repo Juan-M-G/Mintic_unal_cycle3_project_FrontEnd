@@ -10,7 +10,7 @@ export default {
   name: "Home",
   data: function () {
     return {
-      username: localStorage.getItem("username") || "none",
+      uname: localStorage.getItem("username") || "none",
     };
   },
 };

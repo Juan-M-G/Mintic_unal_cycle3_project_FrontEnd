@@ -5,9 +5,6 @@
       Nombre: <span>{{ name }}</span>
     </h2>
     <h2>
-      Saldo: <span>{{ balance }} COP </span>
-    </h2>
-    <h2>
       Correo electrónico: <span>{{ email }}</span>
     </h2>
   </div>
@@ -21,7 +18,6 @@ export default {
     return {
       name: "",
       email: "",
-      balance: 0,
       loaded: false,
     };
   },
@@ -38,13 +34,12 @@ export default {
       let token = localStorage.getItem("token_access");
       let userId = jwt_decode(token).user_id.toString();
       axios
-        .get(`https://unal-guias-mintic.herokuapp.com/user/${userId}/`, {
+        .get(`https://misiontic--bankbe-grupo6-p67.herokuapp.com/user/${userId}/`, {
           headers: { Authorization: `Bearer ${token}` },
         })
         .then((result) => {
           this.name = result.data.name;
           this.email = result.data.email;
-          this.balance = result.data.account.balance;
           this.loaded = true;
         })
         .catch(() => {
@@ -54,7 +49,7 @@ export default {
     verifyToken: function () {
       return axios
         .post(
-          "https://unal-guias-mintic.herokuapp.com/refresh/",
+          "https://misiontic--bankbe-grupo6-p67.herokuapp.com/refresh/",
           { refresh: localStorage.getItem("token_refresh") },
           { headers: {} }
         )

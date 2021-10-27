@@ -1,7 +1,7 @@
 <template>
   <div id="app" class="app">
     <div class="header">
-      <h1>Banco UN</h1>
+      <h1>Heladeria UN</h1>
       <nav>
         <button v-if="is_auth" v-on:click="loadHome">Inicio</button>
         <button v-if="is_auth" v-on:click="loadAccount"> Cuenta </button>
@@ -85,8 +85,8 @@ body {
   width: 100%;
   height: 10vh;
   min-height: 100px;
-  background-color: #283747;
-  color: #e5e7e9;
+  background-color: #A918F2;
+  color: #F18F01;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -104,22 +104,22 @@ body {
   font-size: 20px;
 }
 .header nav button {
-  color: #e5e7e9;
-  background: #283747;
-  border: 1px solid #e5e7e9;
+  color: #F18F01;
+  background: #A918F2;
+  border: 1px solid #F18F01;
   border-radius: 5px;
   padding: 10px 20px;
 }
 .header nav button:hover {
-  color: #283747;
-  background: #e5e7e9;
-  border: 1px solid #e5e7e9;
+  color: #A918F2;
+  background: #F18F01;
+  border: 1px solid #F18F01;
 }
 .main-component {
   height: 75vh;
   margin: 0%;
   padding: 0%;
-  background: #fdfefe;
+  background: #6eb8d8;
 }
 .footer {
   margin: 0;
@@ -127,8 +127,8 @@ body {
   width: 100%;
   height: 10vh;
   min-height: 100px;
-  background-color: #283747;
-  color: #e5e7e9;
+  background-color: #A918F2;
+  color: #F18F01;
 }
 .footer h2 {
   width: 100%;

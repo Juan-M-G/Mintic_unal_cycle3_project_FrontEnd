@@ -28,7 +28,7 @@ export default {
   methods: {
     processLogInUser: function () {
       axios
-        .post("https://unal-guias-mintic.herokuapp.com/login/", this.user, {
+        .post("https://misiontic--bankbe-grupo6-p67.herokuapp.com/login/", this.user, {
           headers: {},
         })
         .then((result) => {
