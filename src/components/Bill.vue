@@ -1,6 +1,6 @@
 <template>
   <div v-if="loaded" class="information">
-    <h1>Información de su cuenta</h1>
+    <h1>Información de su factura</h1>
     <h2>
       Helader@: <span>{{ name }}</span>
     </h2>
@@ -13,7 +13,7 @@
 import jwt_decode from "jwt-decode";
 import axios from "axios";
 export default {
-  name: "Account",
+  name: "Bill",
   data: function () {
     return {
       name: "",
@@ -30,6 +30,7 @@ export default {
         this.$emit("logOut");
         return;
       }
+      //definir que recoja el id a consultar
       await this.verifyToken();
       let token = localStorage.getItem("token_access");
       let userId = jwt_decode(token).user_id.toString();
