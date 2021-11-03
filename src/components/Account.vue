@@ -7,6 +7,7 @@
     <h2>
       Correo electrónico: <span>{{ email }}</span>
     </h2>
+    <span> Hola, este es el id {{selectId}} </span>
   </div>
 </template>
 <script>
@@ -18,6 +19,7 @@ export default {
     return {
       name: "",
       email: "",
+      selectId: "", 
       loaded: false,
     };
   },
@@ -39,7 +41,9 @@ export default {
         })
         .then((result) => {
           this.name = result.data.name;
+          console.log(localStorage)
           this.email = result.data.email;
+          this.selectId = localStorage.selectId;
           this.loaded = true;
         })
         .catch(() => {

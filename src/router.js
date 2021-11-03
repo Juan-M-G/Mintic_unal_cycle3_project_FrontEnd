@@ -4,6 +4,8 @@ import LogIn from './components/LogIn.vue'
 import SignUp from './components/SignUp.vue'
 import Home from './components/Home.vue'
 import Account from './components/Account.vue'
+import Bill from './components/Bill.vue'
+
 const routes = [{
   path: '/',
   name: 'root',
@@ -28,7 +30,13 @@ const routes = [{
   path: '/user/account',
   name: "account",
   component: Account
-}
+},
+{
+  path: '/user/bill',
+  name: "bill",
+  component: Bill
+},
+
 ];
 const router = createRouter({
   history: createWebHistory(),

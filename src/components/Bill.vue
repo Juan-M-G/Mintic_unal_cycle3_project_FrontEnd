@@ -1,23 +1,52 @@
 <template>
   <div v-if="loaded" class="information">
     <h1>Información de su factura</h1>
-    <h2>
-      Helader@: <span>{{ name }}</span>
-    </h2>
-    <h2>
-      Correo electrónico: <span>{{ email }}</span>
-    </h2>
+    <h3>
+      Número de factura: <span>{{ id_bill }}</span>
+    </h3>
+    <h3>
+      Vendedor: <span>{{ user }}</span>
+    </h3>
+    <h3>
+      Cliente: <span>{{ client_name }}</span>
+    </h3>
+    <h3>
+      Fecha de compra: <span>{{ purchase_date }}</span>
+    </h3>
+    <!-- <h3>
+      Productos: <span>{{ product }}</span>
+    </h3> -->
+    <table class="table">
+        <tr>
+            <th>Producto</th>
+            <th>Cantidad</th>
+            <th>Precio Unidad</th>
+            <th>Precio total</th>
+        </tr>
+        <tr v-for="pro in product" v-bind:key = "pro">
+            <td v-text="pro.product_name"> </td>
+            <td v-text="pro.product_amount"> </td>
+            <td v-text="pro.product_price"> </td>
+            <td v-text="pro.sub_total_price"> </td>
+        </tr>
+    </table>
+    <h3>
+      Valor total a cancelar: <span>{{ total_bill }}</span>
+    </h3>
   </div>
 </template>
 <script>
-import jwt_decode from "jwt-decode";
 import axios from "axios";
 export default {
   name: "Bill",
   data: function () {
     return {
-      name: "",
-      email: "",
+      id_bill: "",
+      user: "",
+      client_name: "",
+      purchase_date: "",
+      product: "",
+      total_bill: "",
       loaded: false,
     };
   },
@@ -33,18 +62,26 @@ export default {
       //definir que recoja el id a consultar
       await this.verifyToken();
       let token = localStorage.getItem("token_access");
-      let userId = jwt_decode(token).user_id.toString();
+      //cambiar user_id por el bill_id
+      let billId = localStorage.selectId
       axios
-        .get(`https://misiontic--bankbe-grupo6-p67.herokuapp.com/user/${userId}/`, {
+        .get(`https://misiontic--bankbe-grupo6-p67.herokuapp.com/bill/${billId}/`, {
           headers: { Authorization: `Bearer ${token}` },
         })
         .then((result) => {
-          this.name = result.data.name;
-          this.email = result.data.email;
+          console.log(result.data);
+          this.id_bill = result.data.id_bill;
+          this.user = result.data.user;
+          this.client_name = result.data.client_name;
+          this.purchase_date = result.data.purchase_date;
+          this.product = result.data.product;
+          this.total_bill = result.data.total_bill;
           this.loaded = true;
         })
-        .catch(() => {
-          this.$emit("logOut");
+        .catch((error) => {
+          if (error.response.status == "404")
+            alert("ERROR 404: La factura que busca no extiste.");
+            this.$router.push({ name: "home" });
         });
     },
     verifyToken: function () {
@@ -63,6 +100,7 @@ export default {
     },
   },
   created: async function () {
+    console.log(localStorage)
     this.getData();
   },
 };
@@ -79,15 +117,23 @@ export default {
   align-items: center;
 }
 .information h1 {
+    
   font-size: 60px;
   color: #0f1316;
 }
-.information h2 {
-  font-size: 40px;
-  color: #283747;
+.information h3 {
+  margin: 10px
 }
 .information span {
   color: crimson;
   font-weight: bold;
 }
+.table {
+    text-align: center;
+}
+
+.table th{
+    width: 200px;
+}
+
 </style>

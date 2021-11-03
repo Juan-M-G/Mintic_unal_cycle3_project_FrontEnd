@@ -3,12 +3,17 @@
     <div class="header">
       <h1>Heladeria UN</h1>
       <nav>
+        <div>
         <button v-if="is_auth" v-on:click="loadHome">Inicio</button>
         <button v-if="is_auth" v-on:click="loadAccount"> Cuenta </button>
-        <button v-if="is_auth" v-on:click="loadbill"> Consultar Factura </button>
         <button v-if="is_auth" v-on:click="logOut">Cerrar Sesión</button>
         <button v-if="!is_auth" v-on:click="loadLogIn">Iniciar Sesión</button>
         <button v-if="!is_auth" v-on:click="loadSignUp">Registrarse</button>
+        </div>
+        <div>
+        <input v-if="is_auth" type="number" v-model="bill_id" placeholder = 0>
+        <button v-if="is_auth" v-on:click="loadBill"> Consultar Factura </button>
+      </div>
       </nav>
     </div>
     <div class="main-component">
@@ -30,6 +35,7 @@ export default {
   name: "App",
   data: function () {
     return {
+      bill_id: "0",
       is_auth: false,
     };
   },
@@ -40,6 +46,9 @@ export default {
       if (this.is_auth == false) this.$router.push({ name: "logIn" });
       else this.$router.push({ name: "home" });
     },
+    // selectId: function(){
+    //   return this.bill_id
+    // },
     loadHome: function () {
       this.$router.push({ name: "home" });
     },
@@ -49,9 +58,11 @@ export default {
       this.verifyAuth();
     },
     loadAccount: function () {
+      localStorage.setItem("selectId", this.bill_id);
       this.$router.push({ name: "account" });
     },
     loadBill: function () {
+      localStorage.setItem("selectId", this.bill_id);
       this.$router.push({ name: "bill" });
     },
     loadLogIn: function () {
@@ -103,9 +114,19 @@ body {
   height: 100%;
   width: 20%;
   display: flex;
-  justify-content: space-around;
+  flex-direction: column;
+  justify-content: space-evenly;
   align-items: center;
   font-size: 20px;
+}
+.header div{
+  display: flex;
+  justify-content: space-evenly;
+  padding-right: 20px
+
+}
+.header input{
+  width: 100px;
 }
 .header nav button {
   color: #F18F01;
